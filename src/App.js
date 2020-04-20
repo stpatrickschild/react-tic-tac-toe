@@ -60,8 +60,33 @@ const App = () => {
     setSquares(newSquares)
   }
 
-  const checkForWinner = () => {
-    // Complete in Wave 3
+  const checkForWinner = (row, col) => {
+    if (checkRow() || checkCol() || checkDiagonal()) {
+      
+    }
+  }
+
+  const checkRow = (row) => {
+    let counter = 0;
+    for (let i = 0; i < squares.length; i++) {
+      if (squares[row][i] === turn) {
+        counter++;
+      }
+    }
+    if (counter === 3) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  const checkCol = (col) => {
+    for(let i = 0; i < squares.length; i++){
+      if (squares[i][col] !== turn) {
+        return false
+      }
+    }
+    return true
   }
 
   const resetGame = () => {
