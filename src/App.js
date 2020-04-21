@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './App.css'
 import Board from './components/Board'
+import { createPortal } from 'react-dom'
 
 const PLAYER_1 = 'X'
 const PLAYER_2 = 'O'
@@ -25,8 +26,9 @@ const generateSquares = () => {
 }
 
 const App = () => {
-  const [squares, setSquares] = useState(generateSquares()); //
+  const [squares, setSquares] = useState(generateSquares()); 
   const [turn, setTurn] = useState(PLAYER_1);
+  const [winner, setWinner] = useState('');
 
   //const
 
@@ -58,36 +60,54 @@ const App = () => {
     }
 
     setSquares(newSquares)
+    checkForWinner()
   }
-
-  const checkForWinner = (row, col) => {
+ 
+  //   //complete in wave 3
+  
+  const checkRow = () => {
+    for (let row = 0; row < 3; row++) {
+     if ((squares[row][0].value === turn) &&
+          (squares[row][1].value === turn) &&
+          (squares[row][2].value === turn)){
+            return true;
+          }    
+    }
+    return false;
+  }
+  const checkCol = () => {
+    for (let col = 0; col < 3; col++) {
+     if ((squares[0][col].value === turn) &&
+          (squares[1][col].value === turn) &&
+          (squares[2][col].value === turn)){
+            return true;
+          }    
+    }
+    return false;
+  }
+  
+  const checkDiagonal = () => {
+    if ((squares[0][0].value === turn) &&
+          (squares[1][1].value === turn) &&
+          (squares[2][2].value === turn)) {
+            return true;
+          } 
+    if ((squares[0][2].value === turn) &&
+      (squares[1][1].value === turn) &&
+          (squares[2][0].value === turn)){
+            return true;
+          } 
+      return false;
+  }
+  const checkForWinner = () => {
     if (checkRow() || checkCol() || checkDiagonal()) {
-      
+      setWinner(turn)
     }
   }
+  
 
-  const checkRow = (row) => {
-    let counter = 0;
-    for (let i = 0; i < squares.length; i++) {
-      if (squares[row][i] === turn) {
-        counter++;
-      }
-    }
-    if (counter === 3) {
-      return true
-    } else {
-      return false
-    }
-  }
 
-  const checkCol = (col) => {
-    for(let i = 0; i < squares.length; i++){
-      if (squares[i][col] !== turn) {
-        return false
-      }
-    }
-    return true
-  }
+
 
   const resetGame = () => {
     // Complete in Wave 4
@@ -97,7 +117,7 @@ const App = () => {
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
+        <h2>The winner is {winner} </h2>
         <button>Reset Game</button>
       </header>
       <main>
