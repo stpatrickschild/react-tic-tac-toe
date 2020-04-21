@@ -48,6 +48,7 @@ const App = () => {
             id: squares[row][col].id,
             value: turn
           })
+
           if(turn === PLAYER_1) {
             setTurn(PLAYER_2)
           } else {
@@ -58,14 +59,12 @@ const App = () => {
         }
       }
     }
-
     setSquares(newSquares)
-    checkForWinner()
   }
  
-  //   //complete in wave 3
+    //complete in wave 3
   
-  const checkRow = () => {
+  const checkRow = (turn) => {
     for (let row = 0; row < 3; row++) {
      if ((squares[row][0].value === turn) &&
           (squares[row][1].value === turn) &&
@@ -75,7 +74,7 @@ const App = () => {
     }
     return false;
   }
-  const checkCol = () => {
+  const checkCol = (turn) => {
     for (let col = 0; col < 3; col++) {
      if ((squares[0][col].value === turn) &&
           (squares[1][col].value === turn) &&
@@ -86,7 +85,7 @@ const App = () => {
     return false;
   }
   
-  const checkDiagonal = () => {
+  const checkDiagonal = (turn) => {
     if ((squares[0][0].value === turn) &&
           (squares[1][1].value === turn) &&
           (squares[2][2].value === turn)) {
@@ -99,8 +98,8 @@ const App = () => {
           } 
       return false;
   }
-  const checkForWinner = () => {
-    if (checkRow() || checkCol() || checkDiagonal()) {
+  const checkForWinner = (turn) => {
+    if (checkRow(turn) || checkCol(turn) || checkDiagonal(turn)) {
       setWinner(turn)
     }
   }
@@ -112,7 +111,12 @@ const App = () => {
   const resetGame = () => {
     // Complete in Wave 4
   }
-
+  if (winner === ''){
+    checkForWinner('X')
+    checkForWinner('O')
+  };
+  
+  
   return (
     <div className='App'>
       <header className='App-header'>
