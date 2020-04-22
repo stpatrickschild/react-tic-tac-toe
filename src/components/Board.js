@@ -3,8 +3,6 @@ import './Board.css';
 import Square from './Square';
 import PropTypes from 'prop-types';
 
-
-
 const generateSquareComponents = (squares, onClickCallback) => {
   // 
   let squareComponents = [];
@@ -21,9 +19,6 @@ const generateSquareComponents = (squares, onClickCallback) => {
   }
   // Complete this for Wave 1
 return squareComponents;
-  
-
- 
 }
 
 const Board = ({ squares, onClickCallback }) => {

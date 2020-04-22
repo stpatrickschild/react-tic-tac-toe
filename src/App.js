@@ -114,10 +114,7 @@ const App = () => {
   if (winner === ''){
     checkForWinner('X')
     checkForWinner('O')
-   
   };
-  
-  
   
   return (
     <div className='App'>
